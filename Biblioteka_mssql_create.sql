@@ -1,0 +1,87 @@
+CREATE TABLE [Czytelnik] (
+	ID integer IDENTITY(1,1) NOT NULL,
+	Imie nvarchar(50) NOT NULL,
+	Nazwisko nvarchar(100) NOT NULL,
+	PESEL varchar(11) NOT NULL,
+	Telefon nvarchar(12) NULL,
+	Email nvarchar(50) NULL,
+  CONSTRAINT [PK_CZYTELNIK] PRIMARY KEY CLUSTERED
+  (
+  [ID] ASC
+  ) WITH (IGNORE_DUP_KEY = OFF)
+
+)
+GO
+CREATE TABLE [Wypozyczenie] (
+	ID integer IDENTITY(1,1) NOT NULL,
+	Czytelnik_ID integer NOT NULL,
+	Ksiazka_ID integer NOT NULL,
+	Wydano datetime NOT NULL,
+	Zwrot datetime NULL,
+  CONSTRAINT [PK_WYPOZYCZENIE] PRIMARY KEY CLUSTERED
+  (
+  [ID] ASC
+  ) WITH (IGNORE_DUP_KEY = OFF)
+
+)
+GO
+CREATE TABLE [Ksiazka] (
+	ID integer IDENTITY(1,1) NOT NULL,
+	Tytul nvarchar(100) NOT NULL,
+	ISBN nvarchar(20) NOT NULL,
+	Autor_ID integer NOT NULL,
+	Kategoria_ID integer NOT NULL,
+	Opis nvarchar(200),
+  CONSTRAINT [PK_KSIAZKA] PRIMARY KEY CLUSTERED
+  (
+  [ID] ASC
+  ) WITH (IGNORE_DUP_KEY = OFF)
+
+)
+GO
+CREATE TABLE [Autor] (
+	ID integer IDENTITY(1,1) NOT NULL,
+	Imie nvarchar(50) NOT NULL,
+	Nazwisko nvarchar(50) NOT NULL,
+  CONSTRAINT [PK_AUTOR] PRIMARY KEY CLUSTERED
+  (
+  [ID] ASC
+  ) WITH (IGNORE_DUP_KEY = OFF)
+
+)
+GO
+CREATE TABLE [Kategoria] (
+	ID integer IDENTITY(1,1) NOT NULL,
+	Nazwa nvarchar(50) NOT NULL,
+  CONSTRAINT [PK_KATEGORIA] PRIMARY KEY CLUSTERED
+  (
+  [ID] ASC
+  ) WITH (IGNORE_DUP_KEY = OFF)
+
+)
+GO
+
+ALTER TABLE [Wypozyczenie] WITH CHECK ADD CONSTRAINT [Wypozyczenie_fk0] FOREIGN KEY ([Czytelnik_ID]) REFERENCES [Czytelnik]([ID])
+ON UPDATE CASCADE
+GO
+ALTER TABLE [Wypozyczenie] CHECK CONSTRAINT [Wypozyczenie_fk0]
+GO
+ALTER TABLE [Wypozyczenie] WITH CHECK ADD CONSTRAINT [Wypozyczenie_fk1] FOREIGN KEY ([Ksiazka_ID]) REFERENCES [Ksiazka]([ID])
+ON UPDATE CASCADE
+GO
+ALTER TABLE [Wypozyczenie] CHECK CONSTRAINT [Wypozyczenie_fk1]
+GO
+
+ALTER TABLE [Ksiazka] WITH CHECK ADD CONSTRAINT [Ksiazka_fk0] FOREIGN KEY ([Autor_ID]) REFERENCES [Autor]([ID])
+ON UPDATE CASCADE
+GO
+ALTER TABLE [Ksiazka] CHECK CONSTRAINT [Ksiazka_fk0]
+GO
+ALTER TABLE [Ksiazka] WITH CHECK ADD CONSTRAINT [Ksiazka_fk1] FOREIGN KEY ([Kategoria_ID]) REFERENCES [Kategoria]([ID])
+ON UPDATE CASCADE
+GO
+ALTER TABLE [Ksiazka] CHECK CONSTRAINT [Ksiazka_fk1]
+GO
+
+
+

@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BibliotekaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Autor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Imie" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Nazwisko" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Czytelnik">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Imie" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Nazwisko" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="PESEL" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="Telefon" Type="nvarchar" MaxLength="12" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Kategoria">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nazwa" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ksiazka">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tytul" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="ISBN" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Autor_ID" Type="int" Nullable="false" />
+    <Property Name="Kategoria_ID" Type="int" Nullable="false" />
+    <Property Name="Opis" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Wypozyczenie">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Czytelnik_ID" Type="int" Nullable="false" />
+    <Property Name="Ksiazka_ID" Type="int" Nullable="false" />
+    <Property Name="Wydano" Type="date" Nullable="false" />
+    <Property Name="Zwrot" Type="date" />
+  </EntityType>
+  <Association Name="Ksiazka_fk0">
+    <End Role="Autor" Type="Self.Autor" Multiplicity="1" />
+    <End Role="Ksiazka" Type="Self.Ksiazka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Autor">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Ksiazka">
+        <PropertyRef Name="Autor_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Ksiazka_fk1">
+    <End Role="Kategoria" Type="Self.Kategoria" Multiplicity="1" />
+    <End Role="Ksiazka" Type="Self.Ksiazka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategoria">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Ksiazka">
+        <PropertyRef Name="Kategoria_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Wypozyczenie_fk0">
+    <End Role="Czytelnik" Type="Self.Czytelnik" Multiplicity="1" />
+    <End Role="Wypozyczenie" Type="Self.Wypozyczenie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Czytelnik">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Wypozyczenie">
+        <PropertyRef Name="Czytelnik_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Wypozyczenie_fk1">
+    <End Role="Ksiazka" Type="Self.Ksiazka" Multiplicity="1" />
+    <End Role="Wypozyczenie" Type="Self.Wypozyczenie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ksiazka">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Wypozyczenie">
+        <PropertyRef Name="Ksiazka_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BibliotekaModelStoreContainer">
+    <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Czytelnik" EntityType="Self.Czytelnik" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kategoria" EntityType="Self.Kategoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ksiazka" EntityType="Self.Ksiazka" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Wypozyczenie" EntityType="Self.Wypozyczenie" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="Ksiazka_fk0" Association="Self.Ksiazka_fk0">
+      <End Role="Autor" EntitySet="Autor" />
+      <End Role="Ksiazka" EntitySet="Ksiazka" />
+    </AssociationSet>
+    <AssociationSet Name="Ksiazka_fk1" Association="Self.Ksiazka_fk1">
+      <End Role="Kategoria" EntitySet="Kategoria" />
+      <End Role="Ksiazka" EntitySet="Ksiazka" />
+    </AssociationSet>
+    <AssociationSet Name="Wypozyczenie_fk0" Association="Self.Wypozyczenie_fk0">
+      <End Role="Czytelnik" EntitySet="Czytelnik" />
+      <End Role="Wypozyczenie" EntitySet="Wypozyczenie" />
+    </AssociationSet>
+    <AssociationSet Name="Wypozyczenie_fk1" Association="Self.Wypozyczenie_fk1">
+      <End Role="Ksiazka" EntitySet="Ksiazka" />
+      <End Role="Wypozyczenie" EntitySet="Wypozyczenie" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BibliotekaModelStoreContainer" CdmEntityContainer="BibliotekaEntities">
+    <EntitySetMapping Name="Autor">
+      <EntityTypeMapping TypeName="BibliotekaModel.Autor">
+        <MappingFragment StoreEntitySet="Autor">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Imie" ColumnName="Imie" />
+          <ScalarProperty Name="Nazwisko" ColumnName="Nazwisko" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Czytelnik">
+      <EntityTypeMapping TypeName="BibliotekaModel.Czytelnik">
+        <MappingFragment StoreEntitySet="Czytelnik">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Imie" ColumnName="Imie" />
+          <ScalarProperty Name="Nazwisko" ColumnName="Nazwisko" />
+          <ScalarProperty Name="PESEL" ColumnName="PESEL" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategoria">
+      <EntityTypeMapping TypeName="BibliotekaModel.Kategoria">
+        <MappingFragment StoreEntitySet="Kategoria">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ksiazka">
+      <EntityTypeMapping TypeName="BibliotekaModel.Ksiazka">
+        <MappingFragment StoreEntitySet="Ksiazka">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Tytul" ColumnName="Tytul" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="Autor_ID" ColumnName="Autor_ID" />
+          <ScalarProperty Name="Kategoria_ID" ColumnName="Kategoria_ID" />
+          <ScalarProperty Name="Opis" ColumnName="Opis" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Wypozyczenie">
+      <EntityTypeMapping TypeName="BibliotekaModel.Wypozyczenie">
+        <MappingFragment StoreEntitySet="Wypozyczenie">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Czytelnik_ID" ColumnName="Czytelnik_ID" />
+          <ScalarProperty Name="Ksiazka_ID" ColumnName="Ksiazka_ID" />
+          <ScalarProperty Name="Wydano" ColumnName="Wydano" />
+          <ScalarProperty Name="Zwrot" ColumnName="Zwrot" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
